@@ -34,13 +34,21 @@
         .nav-logo {
             display: flex;
             align-items: center;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         .nav-logo .rbs {
             color: #cc0033; /* Rutgers Red */
             font-weight: bold;
             font-size: 24px;
-            margin-right: 15px;
+        }
+
+        .nav-logo .divider {
+            color: #ccc;
+            font-size: 20px;
+            margin: 0 12px;
+            font-weight: normal;
         }
 
         .nav-logo .portfolio-title {
@@ -60,6 +68,7 @@
             text-decoration: none;
             color: #555;
             font-size: 17px;
+            cursor: pointer;
             transition: color 0.2s;
         }
 
@@ -69,20 +78,29 @@
             font-weight: bold;
         }
 
-        /* Main Content Area */
+        /* Main Content Container */
         main {
             max-width: 1200px;
             margin: 0 auto;
             padding: 60px 40px;
         }
 
+        /* Tab Switching Logic */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* --- ABOUT TAB STYLES --- */
         .profile-container {
             display: flex;
             align-items: flex-start;
             gap: 45px;
         }
 
-        /* Profile Sidebar */
         .profile-sidebar {
             width: 220px;
             text-align: center;
@@ -114,19 +132,18 @@
         }
 
         .profile-sidebar .school {
-            color: #cc0033; /* Red */
+            color: #cc0033;
             font-size: 15px;
             margin: 0 0 2px 0;
             font-weight: bold;
         }
 
         .profile-sidebar .grad-year {
-            color: #000; /* Black */
+            color: #000;
             font-size: 15px;
             margin: 0;
         }
 
-        /* Profile Main Content */
         .profile-content {
             flex: 1;
         }
@@ -177,7 +194,6 @@
             opacity: 0.85;
         }
 
-        /* Skills Section */
         .section-header {
             font-size: 24px;
             margin-top: 55px;
@@ -202,6 +218,83 @@
             border-radius: 16px;
             font-size: 14.5px;
         }
+
+        /* --- PROJECTS TAB STYLES --- */
+        .page-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 15px;
+        }
+
+        .page-header h1 {
+            font-size: 34px;
+            color: #111;
+            margin: 0 0 8px 0;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .project-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 30px;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            margin-bottom: 35px;
+            background-color: #fafafa;
+        }
+
+        .project-text {
+            flex: 1;
+        }
+
+        .project-date {
+            font-weight: bold;
+            color: #cc0033;
+            font-size: 16px;
+        }
+
+        .project-desc {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.7;
+            margin: 8px 0 0 0;
+        }
+
+        .project-action {
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .download-btn:hover {
+            background-color: #cc0033;
+        }
+
+        .file-hint {
+            display: block;
+            font-size: 12px;
+            color: #777;
+            margin-top: 6px;
+        }
     </style>
 </head>
 <body>
@@ -209,61 +302,113 @@
     <!-- Header / Navigation Bar -->
     <header>
         <div class="nav-container">
-            <div class="nav-logo">
+            <div class="nav-logo" onclick="switchTab('about')">
                 <span class="rbs">RBS</span>
+                <span class="divider">|</span>
                 <span class="portfolio-title">Karishma's Portfolio</span>
             </div>
             <ul class="nav-tabs">
-                <li><a href="index.html" class="active">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
+                <li><a id="tab-btn-about" class="active" onclick="switchTab('about')">About</a></li>
+                <li><a id="tab-btn-projects" onclick="switchTab('projects')">Projects</a></li>
             </ul>
         </div>
     </header>
 
     <!-- Main Content -->
     <main>
-        <div class="profile-container">
-            <!-- Sidebar with Headshot -->
-            <aside class="profile-sidebar">
-                <div class="profile-pic-wrapper">
-                    <!-- Headshot image updated to headshot.png -->
-                    <img src="headshot.png" alt="Karishma Shah Headshot">
-                </div>
-                <h2>Karishma Shah</h2>
-                <p class="school">Rutgers Business School</p>
-                <p class="grad-year">Class of 2029</p>
-            </aside>
+        <!-- 1. ABOUT SECTION -->
+        <section id="tab-about" class="tab-content active">
+            <div class="profile-container">
+                <aside class="profile-sidebar">
+                    <div class="profile-pic-wrapper">
+                        <img src="headshot.png" alt="Karishma Shah Headshot">
+                    </div>
+                    <h2>Karishma Shah</h2>
+                    <p class="school">Rutgers Business School</p>
+                    <p class="grad-year">Class of 2029</p>
+                </aside>
 
-            <!-- Main Profile Text -->
-            <div class="profile-content">
-                <span class="status-badge">Finance Major</span>
-                <h1>Turning Investment Experience Into a Future in Finance</h1>
-                <p class="bio">
-                    I am a driven undergraduate student at RBS who has managed my family’s investment portfolio to help fund my college education while developing a strong interest in pursuing a career in investment banking.
-                </p>
-                <div class="social-links">
-                    <!-- Directly opens Gmail web compose to karipshah@gmail.com -->
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=karipshah@gmail.com" target="_blank" rel="noopener noreferrer">Email Me</a>
-                    <!-- LinkedIn profile without arrow -->
-                    <a href="https://www.linkedin.com/in/karishma-pshah/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+                <div class="profile-content">
+                    <span class="status-badge">Finance Major</span>
+                    <h1>Turning Investment Experience Into a Future in Finance</h1>
+                    <p class="bio">
+                        I am a driven undergraduate student at RBS who has managed my family’s investment portfolio to help fund my college education while developing a strong interest in pursuing a career in investment banking.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=karipshah@gmail.com" target="_blank" rel="noopener noreferrer">Email Me</a>
+                        <a href="https://www.linkedin.com/in/karishma-pshah/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Technical & Professional Skills Section -->
-        <h2 class="section-header">Technical & Professional Skills</h2>
-        <div class="skills-list">
-            <span class="skill-tag">Financial Analysis</span>
-            <span class="skill-tag">Investment Research</span>
-            <span class="skill-tag">Portfolio Management</span>
-            <span class="skill-tag">Financial Modeling</span>
-            <span class="skill-tag">Microsoft Excel</span>
-            <span class="skill-tag">Market Research</span>
-            <span class="skill-tag">Data Analysis</span>
-            <span class="skill-tag">Valuation</span>
-            <span class="skill-tag">Presentation & Communication</span>
-        </div>
+            <!-- Technical & Professional Skills -->
+            <h2 class="section-header">Technical & Professional Skills</h2>
+            <div class="skills-list">
+                <span class="skill-tag">Financial Analysis</span>
+                <span class="skill-tag">Investment Research</span>
+                <span class="skill-tag">Portfolio Management</span>
+                <span class="skill-tag">Financial Modeling</span>
+                <span class="skill-tag">Microsoft Excel</span>
+                <span class="skill-tag">Market Research</span>
+                <span class="skill-tag">Presentation & Communication</span>
+            </div>
+        </section>
+
+        <!-- 2. PROJECTS SECTION -->
+        <section id="tab-projects" class="tab-content">
+            <div class="page-header">
+                <h1>Equity Research & Financial Modeling</h1>
+                <p>Selected valuation models and research pitches.</p>
+            </div>
+
+            <!-- Project 1: The Cigna Group -->
+            <div class="project-card">
+                <div class="project-text">
+                    <span class="project-date">Presented April 17, 2026</span>
+                    <p class="project-desc">
+                        Presented an equity research pitch on The Cigna Group based on the view that its transition toward an integrated healthcare-services company through Evernorth creates a durable earnings engine, with specialty pharmacy growth and diversified recurring revenue as key drivers. The pitch also considered Cigna’s portfolio restructuring and its valuation discount relative to the broader healthcare market, ultimately supporting a BUY recommendation.
+                    </p>
+                </div>
+                <div class="project-action">
+                    <a href="ci.xlsx" class="download-btn" download>Cigna Financial Model</a>
+                    <span class="file-hint">Excel (.xlsx)</span>
+                </div>
+            </div>
+
+            <!-- Project 2: T-Mobile -->
+            <div class="project-card">
+                <div class="project-text">
+                    <span class="project-date">Presented February 26, 2026</span>
+                    <p class="project-desc">
+                        Presented an equity research pitch on T-Mobile based on the view that its 5G network leadership and continued subscriber growth provide a strong long-term growth engine, while its expanding fixed-wireless business adds another avenue for revenue growth. The pitch weighed these strengths against T-Mobile’s premium valuation versus traditional telecom peers, ultimately supporting a HOLD recommendation.
+                    </p>
+                </div>
+                <div class="project-action">
+                    <a href="tmus.xlsx" class="download-btn" download>T-Mobile Financial Model</a>
+                    <span class="file-hint">Excel (.xlsx)</span>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <!-- Tab Toggle Script -->
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tabs a').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            if (tabName === 'about') {
+                document.getElementById('tab-about').classList.add('active');
+                document.getElementById('tab-btn-about').classList.add('active');
+            } else if (tabName === 'projects') {
+                document.getElementById('tab-projects').classList.add('active');
+                document.getElementById('tab-btn-projects').classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
